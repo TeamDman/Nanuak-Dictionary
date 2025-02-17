@@ -1,12 +1,10 @@
-use std::path::PathBuf;
-
 use cloud_terrastodon_core_user_input::prelude::Choice;
 use cloud_terrastodon_core_user_input::prelude::FzfArgs;
 use cloud_terrastodon_core_user_input::prelude::pick;
 use serde::Deserialize;
 use serde::Serialize;
+use tracing::info;
 
-use crate::create_new_version;
 use crate::create_new_version_state::CreateNewVersionState;
 use crate::define_word_state::DefineWordState;
 
@@ -20,24 +18,41 @@ pub enum DictionaryApplicationState {
 }
 const INITIAL_ACTIONS: [DictionaryApplicationState; 2] = [
     DictionaryApplicationState::DefineWord(DefineWordState::PromptingForWordToDefine),
-    DictionaryApplicationState::BeginCreateNewVersion,
+    DictionaryApplicationState::CreateNewVersion(
+        CreateNewVersionState::DetermineWorkspaceCargoTomlPath,
+    ),
 ];
 
-pub trait State {
+#[async_trait::async_trait]
+pub trait State: Sized {
     fn describe(&self) -> &'static str;
     async fn next(self) -> eyre::Result<Self>
     where
         Self: Sized;
     fn is_terminal(&self) -> bool;
+
+    async fn next_until_terminal(self) -> eyre::Result<Self> {
+        let mut state = self;
+        loop {
+            info!("Applying state: {}", state.describe());
+            state = state.next().await?;
+            info!("Next state: {}", state.describe());
+            if state.is_terminal() {
+                break;
+            }
+        }
+        Ok(state)
+    }
 }
 
+#[async_trait::async_trait]
 impl State for DictionaryApplicationState {
     fn describe(&self) -> &'static str {
         match self {
             Self::JustLaunchedNoArgs => "Start the application",
-            Self::BeginCreateNewVersion => "Create a new version",
-            Self::Done => "Done",
             Self::DefineWord(state) => state.describe(),
+            Self::CreateNewVersion(state) => state.describe(),
+            Self::Done => "Done",
         }
     }
     async fn next(self) -> eyre::Result<Self> {
@@ -57,15 +72,11 @@ impl State for DictionaryApplicationState {
                 Ok(chosen.value.clone())
             }
             Self::DefineWord(state) => {
-                let next_state = state.next().await?;
-                if next_state.is_terminal() {
-                    Ok(Self::Done)
-                } else {
-                    Ok(Self::DefineWord(next_state))
-                }
+                _ = state.next_until_terminal().await?;
+                Ok(Self::Done)
             }
-            Self::BeginCreateNewVersion => {
-                create_new_version().await?;
+            Self::CreateNewVersion(state) => {
+                _ = state.next_until_terminal().await?;
                 Ok(Self::Done)
             }
             Self::Done => Ok(Self::Done),

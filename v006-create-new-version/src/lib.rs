@@ -124,7 +124,7 @@ pub fn is_valid_version_name(version_name: &str) -> eyre::Result<()> {
 }
 
 pub async fn get_versions(
-    nanuak_dictionary_root_dir: impl AsRef<Path>,
+    nanuak_dictionary_root_dir: impl AsRef<Path> + Sized,
 ) -> eyre::Result<Vec<PathBuf>> {
     // Simply return the child directories sorted by name.
     let mut children = tokio::fs::read_dir(nanuak_dictionary_root_dir).await?;

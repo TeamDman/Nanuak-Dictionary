@@ -60,6 +60,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "async-trait"
+version = "0.1.86"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "644dd749086bf3771a2fbc5f256fdb982d53f011c7d5d560304eafeecebce79d"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn",
+]
+
+[[package]]
 name = "autocfg"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1844,9 +1855,12 @@ name = "v026-dictionary"
 version = "0.1.0"
 dependencies = [
  "async-recursion",
+ "async-trait",
+ "cloud_terrastodon_core_user_input",
  "color-eyre",
  "dialoguer",
  "eyre",
+ "itertools 0.14.0",
  "ollama-rs",
  "serde",
  "serde_json",

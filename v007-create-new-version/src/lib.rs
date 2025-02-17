@@ -129,7 +129,12 @@ pub async fn apply_file_changes_for_new_version_name(
         new_version_name
     );
     let cargo_toml_path = new_version_dir.join("Cargo.toml");
-    let cargo_toml = tokio::fs::read_to_string(&cargo_toml_path).await?;
+    let cargo_toml = tokio::fs::read_to_string(&cargo_toml_path)
+        .await
+        .context(format!(
+            "Reading {} as CargoToml",
+            cargo_toml_path.display()
+        ))?;
     let mut cargo_toml: cargo_toml::CargoToml = toml::from_str(&cargo_toml).context(format!(
         "Parsing {} as CargoToml",
         cargo_toml_path.display()

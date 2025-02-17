@@ -1,4 +1,6 @@
 pub mod state;
+pub mod define_word_state;
+pub mod create_new_version_state;
 
 use strum::VariantArray;
 
