@@ -197,6 +197,11 @@ pub async fn apply_file_changes_for_new_version_name(
     )
     .await?;
 
+    // let main_rs_path = new_version_dir.join("src").join("main.rs");
+    // info!("Update the main.rs file at {}", main_rs_path.display());
+    // let main_rs = tokio::fs::read_to_string(&main_rs_path).await?;
+    // let main_
+
     Ok(())
 }
 

@@ -16,6 +16,7 @@ use v006_create_new_version::get_nanuak_dictionary_root_dir_using_cwd_if_matches
 use v006_create_new_version::get_versions;
 use v006_create_new_version::is_valid_version_name;
 use v006_create_new_version::prompt_next_version_name;
+use v007_create_new_version::cargo_toml;
 
 use crate::state::State;
 
@@ -24,33 +25,44 @@ pub enum CreateNewVersionState {
     #[default]
     DetermineWorkspaceCargoTomlPath,
     IdentifyNextVersionNumber {
-        workspace_cargo_toml_path: PathBuf,
+        workspace_dir: PathBuf,
     },
     IdentifyNextVersionName {
-        workspace_cargo_toml_path: PathBuf,
-        next_version_number: usize,
         workspace_dir: PathBuf,
+        next_version_number: usize,
     },
     IdentifyTemplateVersion {
         workspace_dir: PathBuf,
-        workspace_cargo_toml_path: PathBuf,
-        next_version_number: usize,
         next_version_name: String,
         next_version_dir: PathBuf,
     },
     CreateNewVersionFromTemplate {
-        workspace_cargo_toml_path: PathBuf,
-        next_version_number: usize,
+        workspace_dir: PathBuf,
         next_version_name: String,
         next_version_dir: PathBuf,
         template_version_name: String,
         template_version_dir: PathBuf,
     },
-    ApplyFileChanges {
-        workspace_cargo_toml_path: PathBuf,
-        next_version_number: usize,
+    UpdateWorkspaceCargoToml {
+        workspace_dir: PathBuf,
         next_version_name: String,
         next_version_dir: PathBuf,
+        template_version_name: String,
+        template_version_dir: PathBuf,
+    },
+    UpdateVersionCargoToml {
+        workspace_dir: PathBuf,
+        next_version_name: String,
+        next_version_dir: PathBuf,
+        template_version_name: String,
+        template_version_dir: PathBuf,
+    },
+    UpdateMain {
+        workspace_dir: PathBuf,
+        next_version_name: String,
+        next_version_dir: PathBuf,
+        template_version_name: String,
+        template_version_dir: PathBuf,
     },
     Done,
 }
@@ -63,7 +75,9 @@ impl State for CreateNewVersionState {
             Self::IdentifyNextVersionName { .. } => "Identify next version name",
             Self::IdentifyTemplateVersion { .. } => "Identify template version",
             Self::CreateNewVersionFromTemplate { .. } => "Create new version from template",
-            Self::ApplyFileChanges { .. } => "Apply file changes",
+            Self::UpdateWorkspaceCargoToml { .. } => "Update workspace Cargo.toml",
+            Self::UpdateVersionCargoToml { .. } => "Update version Cargo.toml",
+            Self::UpdateMain { .. } => "Update main",
             Self::Done => "Done",
         }
         .to_string()
@@ -76,27 +90,12 @@ impl State for CreateNewVersionState {
         match self {
             Self::DetermineWorkspaceCargoTomlPath => {
                 info!("Find the root dir containing the versions");
-                let nanuak_dictionary_root_dir =
+                let workspace_dir =
                     get_nanuak_dictionary_root_dir_using_cwd_if_matches_or_parent_dir().await?;
-                let workspace_cargo_toml_path = nanuak_dictionary_root_dir.join("Cargo.toml");
-                if tokio::fs::try_exists(&workspace_cargo_toml_path).await? == false {
-                    bail!(
-                        "Cargo.toml not found at {}",
-                        workspace_cargo_toml_path.display()
-                    );
-                }
 
-                Ok(Self::IdentifyNextVersionNumber {
-                    workspace_cargo_toml_path,
-                })
+                Ok(Self::IdentifyNextVersionNumber { workspace_dir })
             }
-            Self::IdentifyNextVersionNumber {
-                workspace_cargo_toml_path,
-            } => {
-                let workspace_dir = workspace_cargo_toml_path
-                    .parent()
-                    .ok_or_eyre("No parent dir")?
-                    .to_path_buf();
+            Self::IdentifyNextVersionNumber { workspace_dir } => {
                 let versions = get_versions(&workspace_dir).await?;
                 for version in &versions {
                     println!("{}", version.display());
@@ -107,13 +106,11 @@ impl State for CreateNewVersionState {
 
                 Ok(Self::IdentifyNextVersionName {
                     workspace_dir,
-                    workspace_cargo_toml_path,
                     next_version_number,
                 })
             }
             Self::IdentifyNextVersionName {
                 workspace_dir,
-                workspace_cargo_toml_path,
                 next_version_number,
             } => {
                 info!(
@@ -147,16 +144,12 @@ impl State for CreateNewVersionState {
                 }
                 Ok(Self::IdentifyTemplateVersion {
                     workspace_dir,
-                    workspace_cargo_toml_path,
-                    next_version_number,
                     next_version_name: validated_next_version_name,
                     next_version_dir,
                 })
             }
             Self::IdentifyTemplateVersion {
                 workspace_dir,
-                workspace_cargo_toml_path,
-                next_version_number,
                 next_version_name,
                 next_version_dir,
             } => {
@@ -175,8 +168,7 @@ impl State for CreateNewVersionState {
                     prompt: None,
                 })?;
                 Ok(Self::CreateNewVersionFromTemplate {
-                    workspace_cargo_toml_path,
-                    next_version_number,
+                    workspace_dir,
                     next_version_name,
                     next_version_dir,
                     template_version_name: chosen
@@ -189,11 +181,10 @@ impl State for CreateNewVersionState {
                 })
             }
             Self::CreateNewVersionFromTemplate {
-                workspace_cargo_toml_path,
-                next_version_number,
+                workspace_dir,
                 next_version_name,
                 next_version_dir,
-                template_version_name: _,
+                template_version_name,
                 template_version_dir,
             } => {
                 v006_create_new_version::copy_dir_all(&template_version_dir, &next_version_dir)
@@ -204,29 +195,133 @@ impl State for CreateNewVersionState {
                     template_version_dir.display()
                 );
 
-                Ok(Self::ApplyFileChanges {
-                    workspace_cargo_toml_path,
-                    next_version_number,
+                Ok(Self::UpdateWorkspaceCargoToml {
+                    workspace_dir,
                     next_version_name,
                     next_version_dir,
+                    template_version_name,
+                    template_version_dir,
                 })
             }
-            Self::ApplyFileChanges {
-                workspace_cargo_toml_path: _,
-                next_version_number: _,
+            Self::UpdateWorkspaceCargoToml {
+                workspace_dir,
                 next_version_name,
                 next_version_dir,
+                template_version_name,
+                template_version_dir,
             } => {
-                info!("Applying the new version name to the Cargo.toml");
-                v007_create_new_version::apply_file_changes_for_new_version_name(
-                    next_version_dir,
-                    &next_version_name,
+                let workspace_cargo_toml_path = workspace_dir.join("Cargo.toml");
+                if tokio::fs::try_exists(&workspace_cargo_toml_path).await? == false {
+                    bail!(
+                        "Cargo.toml not found at {}",
+                        workspace_cargo_toml_path.display()
+                    );
+                }
+                info!(
+                    "Add the new version name to {}",
+                    workspace_cargo_toml_path.display()
+                );
+                let workspace_cargo_toml =
+                    tokio::fs::read_to_string(&workspace_cargo_toml_path).await?;
+                let mut workspace_cargo_toml: cargo_toml::CargoToml =
+                    toml::from_str(&workspace_cargo_toml).context(format!(
+                        "Interpreting cargo toml from {}",
+                        workspace_cargo_toml_path.display()
+                    ))?;
+                workspace_cargo_toml
+                    .workspace
+                    .as_mut()
+                    .ok_or_eyre("No workspace")?
+                    .members
+                    .push(next_version_name.clone());
+                let None = workspace_cargo_toml
+                    .workspace
+                    .as_mut()
+                    .ok_or_eyre("No workspace")?
+                    .dependencies
+                    .0
+                    .insert(
+                        next_version_name.clone(),
+                        cargo_toml::Dependency::Path {
+                            path: next_version_name.to_string(),
+                            features: None,
+                        },
+                    )
+                else {
+                    bail!(
+                        "Dependency already exists trying to insert {:?} to {} which exists as {:#?}",
+                        next_version_name,
+                        workspace_cargo_toml_path.display(),
+                        workspace_cargo_toml
+                    );
+                };
+                tokio::fs::write(
+                    &workspace_cargo_toml_path,
+                    toml::to_string(&workspace_cargo_toml)?,
                 )
-                .await
-                .context("Applying the new version name to the Cargo.toml")?;
+                .await?;
+                Ok(Self::UpdateVersionCargoToml {
+                    workspace_dir,
+                    next_version_name,
+                    next_version_dir,
+                    template_version_name,
+                    template_version_dir,
+                })
+            }
+            Self::UpdateVersionCargoToml {
+                workspace_dir,
+                next_version_name,
+                next_version_dir,
+                template_version_name,
+                template_version_dir,
+            } => {
+                info!(
+                    "replace the old version name in {}/Cargo.toml with the new version name",
+                    next_version_name
+                );
+                let cargo_toml_path = next_version_dir.join("Cargo.toml");
+                let cargo_toml =
+                    tokio::fs::read_to_string(&cargo_toml_path)
+                        .await
+                        .context(format!(
+                            "Reading {} as CargoToml",
+                            cargo_toml_path.display()
+                        ))?;
+                let mut cargo_toml: cargo_toml::CargoToml = toml::from_str(&cargo_toml).context(
+                    format!("Parsing {} as CargoToml", cargo_toml_path.display()),
+                )?;
+                cargo_toml
+                    .package
+                    .as_mut()
+                    .ok_or_eyre(format!(
+                        "Expected \"package\" to be present in {}",
+                        cargo_toml_path.display()
+                    ))?
+                    .name = next_version_name.to_string();
+                tokio::fs::write(&cargo_toml_path, toml::to_string(&cargo_toml)?).await?;
+
+                Ok(Self::UpdateMain {
+                    workspace_dir,
+                    next_version_name,
+                    next_version_dir,
+                    template_version_name,
+                    template_version_dir,
+                })
+            }
+            Self::UpdateMain {
+                workspace_dir: _,
+                next_version_name,
+                next_version_dir,
+                template_version_name,
+                template_version_dir: _,
+            } => {
+                let main_rs_path = next_version_dir.join("src").join("main.rs");
+                info!("Update the main.rs file at {}", main_rs_path.display());
+                let main_rs = tokio::fs::read_to_string(&main_rs_path).await?;
+                let main_rs = main_rs.replace(&template_version_name, &next_version_name);
+                tokio::fs::write(&main_rs_path, main_rs).await?;
                 Ok(Self::Done)
             }
-
             Self::Done => Ok(Self::Done),
         }
     }
