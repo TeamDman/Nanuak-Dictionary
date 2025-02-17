@@ -120,6 +120,17 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
+name = "cloud_terrastodon_core_user_input"
+version = "0.1.0"
+source = "git+https://github.com/aafc-cloud/Cloud-Terrastodon/?rev=5ea41e5fa70a8f0e83119bec846c28d49859be6a#5ea41e5fa70a8f0e83119bec846c28d49859be6a"
+dependencies = [
+ "eyre",
+ "indexmap 2.7.1",
+ "itertools 0.12.1",
+ "tokio",
+]
+
+[[package]]
 name = "color-eyre"
 version = "0.6.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -204,6 +215,12 @@ name = "dyn-clone"
 version = "1.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "feeef44e73baff3a26d371801df019877a9866a8c493d315ab00177843314f35"
+
+[[package]]
+name = "either"
+version = "1.13.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "60b1af1c220855b6ceac025d3f6ecdd2b7c4894bfe9cd9bda4fbb4bc7c0d4cf0"
 
 [[package]]
 name = "encode_unicode"
@@ -607,6 +624,24 @@ name = "ipnet"
 version = "2.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "469fb0b9cefa57e3ef31275ee7cacb78f2fdca44e4765491884a2b119d4eb130"
+
+[[package]]
+name = "itertools"
+version = "0.12.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ba291022dbbd398a455acf126c1e341954079855bc60dfdda641363bd6922569"
+dependencies = [
+ "either",
+]
+
+[[package]]
+name = "itertools"
+version = "0.14.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2b192c782037fadd9cfa75548310488aabdbf3d2da73885b31bd0abd03351285"
+dependencies = [
+ "either",
+]
 
 [[package]]
 name = "itoa"
@@ -1787,9 +1822,11 @@ name = "v025-dictionary"
 version = "0.1.0"
 dependencies = [
  "async-recursion",
+ "cloud_terrastodon_core_user_input",
  "color-eyre",
  "dialoguer",
  "eyre",
+ "itertools 0.14.0",
  "ollama-rs",
  "serde",
  "serde_json",

@@ -1,3 +1,5 @@
+pub mod state;
+
 use strum::VariantArray;
 
 #[derive(Debug, VariantArray)]
@@ -23,13 +25,6 @@ impl Action {
             .interact()?;
         Ok(&actions[action])
     }
-    pub async fn perform(&self) -> eyre::Result<()> {
-        match self {
-            Self::CreateNewVersion => create_new_version().await?,
-            Self::DefineWord => define_word().await?,
-        }
-        Ok(())
-    }
 }
 
 pub async fn create_new_version() -> eyre::Result<()> {
@@ -38,13 +33,15 @@ pub async fn create_new_version() -> eyre::Result<()> {
     Ok(())
 }
 
-pub async fn define_word() -> eyre::Result<()> {
+pub async fn define_word(word: &str) -> eyre::Result<()> {
     tracing::info!("Defining a word");
-    let word = prompt_user_for_word().await?;
-    todo!("Define the word: {}", word);
-    // Ok(())
+    let definition = todo!("get word definition");
+    println!("{}: {}", word, definition);
+    Ok(())
 }
+
 pub async fn prompt_user_for_word() -> eyre::Result<String> {
+    tracing::info!("Prompting the user for a word");
     let word = dialoguer::Input::new()
         .with_prompt("Enter a word")
         .interact()?;

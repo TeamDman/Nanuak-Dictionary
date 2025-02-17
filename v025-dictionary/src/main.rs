@@ -1,11 +1,16 @@
-use v025_dictionary::Action;
+use v025_dictionary::{state::DictionaryApplicationState, Action};
 
 #[tokio::main]
 pub async fn main() -> eyre::Result<()> {
     tracing::info!("Ahoy!");
     v006_create_new_version::init().await?;
-    let action = Action::prompt_user_to_pick_an_action().await?;
-    action.perform().await?;
+    let mut state: DictionaryApplicationState = Default::default();
+    loop {
+        state = state.next().await?;
+        if state == DictionaryApplicationState::Done {
+            break;
+        }
+    }
     tracing::info!("Goodbye from {}", env!("CARGO_PKG_NAME"));
     Ok(())
 }
