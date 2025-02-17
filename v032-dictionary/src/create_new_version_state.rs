@@ -65,7 +65,8 @@ impl State for CreateNewVersionState {
             Self::CreateNewVersionFromTemplate { .. } => "Create new version from template",
             Self::ApplyFileChanges { .. } => "Apply file changes",
             Self::Done => "Done",
-        }.to_string()
+        }
+        .to_string()
     }
 
     async fn next(self) -> eyre::Result<Self>
@@ -160,14 +161,16 @@ impl State for CreateNewVersionState {
                 next_version_dir,
             } => {
                 let versions = get_versions(&workspace_dir).await?;
+                let mut choices = versions
+                    .into_iter()
+                    .map(|version| Choice {
+                        key: version.display().to_string(),
+                        value: version,
+                    })
+                    .collect_vec();
+                choices.reverse();
                 let chosen = pick(FzfArgs {
-                    choices: versions
-                        .into_iter()
-                        .map(|version| Choice {
-                            key: version.display().to_string(),
-                            value: version,
-                        })
-                        .collect_vec(),
+                    choices,
                     header: Some("Choose a version to copy".to_string()),
                     prompt: None,
                 })?;

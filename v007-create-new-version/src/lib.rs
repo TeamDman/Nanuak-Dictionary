@@ -250,5 +250,11 @@ pub mod cargo_toml {
             #[serde(skip_serializing_if = "Option::is_none")]
             features: Option<Vec<String>>,
         },
+        GitRevision {
+            git: String,
+            rev: String,
+            #[serde(skip_serializing_if = "Option::is_none")]
+            features: Option<Vec<String>>,
+        },
     }
 }
