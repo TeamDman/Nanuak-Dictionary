@@ -1,0 +1,28 @@
+[workspace]
+resolver = "2"
+members = [
+    "v001-runner",
+    "v003-create-new-version",
+    "v004-create-new-version",
+    "v005-create-new-version",
+    "v006-create-new-version",
+    "v007-create-new-version",
+    "v008-launch-create-new-version",
+    "v009-dictionary",
+    "v010-dictionary",
+    "v011-recovery-state",
+    "v012-recovery-state",
+]
+
+[workspace.dependencies]
+v001-runner = { path = "v001-runner" }
+v003-create-new-version = { path = "v003-create-new-version" }
+v004-create-new-version = { path = "v004-create-new-version" }
+v005-create-new-version = { path = "v005-create-new-version" }
+v006-create-new-version = { path = "v006-create-new-version" }
+v007-create-new-version = { path = "v007-create-new-version" }
+v008-launch-create-new-version = { path = "v008-launch-create-new-version" }
+v009-dictionary = { path = "v009-dictionary" }
+v010-dictionary = { path = "v010-dictionary" }
+v011-recovery-state = { path = "v011-recovery-state" }
+v012-recovery-state = { path = "v012-recovery-state" }
