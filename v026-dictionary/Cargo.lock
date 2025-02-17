@@ -337,12 +337,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bf151400ff0baff5465007dd2f3e717f3fe502074ca563069ce3a6629d07b289"
 
 [[package]]
-name = "heck"
-version = "0.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea"
-
-[[package]]
 name = "http"
 version = "1.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1210,28 +1204,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
 
 [[package]]
-name = "strum"
-version = "0.27.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f64def088c51c9510a8579e3c5d67c65349dcf755e5479ad3d010aa6454e2c32"
-dependencies = [
- "strum_macros",
-]
-
-[[package]]
-name = "strum_macros"
-version = "0.27.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c77a8c5abcaf0f9ce05d62342b7d298c346515365c36b673df4ebe3ced01fde8"
-dependencies = [
- "heck",
- "proc-macro2",
- "quote",
- "rustversion",
- "syn",
-]
-
-[[package]]
 name = "syn"
 version = "2.0.98"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1549,56 +1521,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b6c140620e7ffbb22c2dee59cafe6084a59b5ffc27a8859a5f0d494b5d52b6be"
 
 [[package]]
-name = "v001-runner"
-version = "0.1.0"
-dependencies = [
- "color-eyre",
- "eyre",
- "ollama-rs",
- "tokio",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "v003-create-new-version"
-version = "0.1.0"
-dependencies = [
- "color-eyre",
- "eyre",
- "ollama-rs",
- "tokio",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "v004-create-new-version"
-version = "0.1.0"
-dependencies = [
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "tokio",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "v005-create-new-version"
-version = "0.1.0"
-dependencies = [
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "tokio",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
 name = "v006-create-new-version"
 version = "0.1.0"
 dependencies = [
@@ -1641,179 +1563,6 @@ dependencies = [
  "ollama-rs",
  "serde",
  "serde_json",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v009-dictionary"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "serde",
- "serde_json",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v010-dictionary"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "serde",
- "serde_json",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v011-recovery-state"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "serde",
- "serde_json",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v012-recovery-state"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "serde",
- "serde_json",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v013-recovery-state"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "serde",
- "serde_json",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v014-recovery-state"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "serde",
- "serde_json",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v024-recovery-state"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "serde",
- "serde_json",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v025-dictionary"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "serde",
- "serde_json",
- "strum",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v026-dictionary"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "serde",
- "serde_json",
- "strum",
  "tokio",
  "toml",
  "tracing",

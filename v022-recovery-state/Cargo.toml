@@ -1,0 +1,32 @@
+[package]
+name = "v022-recovery-state"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+dialoguer = "0.11.0"
+ollama-rs = "0.2.5"
+eyre = "0.6.12"
+color-eyre = "0.6.3"
+tracing = "0.1.41"
+serde_json = "1.0.138"
+async-recursion = "1.1.1"
+toml = "0.8.20"
+
+[dependencies.v006-create-new-version]
+path = "../v006-create-new-version"
+
+[dependencies.serde]
+version = "1.0.217"
+features = ["derive"]
+
+[dependencies.tokio]
+version = "1.43.0"
+features = ["full"]
+
+[dependencies.tracing-subscriber]
+version = "0.3.19"
+features = ["fmt", "env-filter"]
+
+[dependencies.v007-create-new-version]
+path = "../v007-create-new-version"

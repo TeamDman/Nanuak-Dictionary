@@ -1,28 +1,51 @@
 [workspace]
 resolver = "2"
-members = [
-    "v001-runner",
-    "v003-create-new-version",
-    "v004-create-new-version",
-    "v005-create-new-version",
-    "v006-create-new-version",
-    "v007-create-new-version",
-    "v008-launch-create-new-version",
-    "v009-dictionary",
-    "v010-dictionary",
-    "v011-recovery-state",
-    "v012-recovery-state",
-]
+members = ["v001-runner", "v003-create-new-version", "v004-create-new-version", "v005-create-new-version", "v006-create-new-version", "v007-create-new-version", "v008-launch-create-new-version", "v009-dictionary", "v010-dictionary", "v011-recovery-state", "v012-recovery-state", "v013-recovery-state", "v014-recovery-state", "v024-recovery-state", "v025-dictionary", "v026-dictionary"]
 
-[workspace.dependencies]
-v001-runner = { path = "v001-runner" }
-v003-create-new-version = { path = "v003-create-new-version" }
-v004-create-new-version = { path = "v004-create-new-version" }
-v005-create-new-version = { path = "v005-create-new-version" }
-v006-create-new-version = { path = "v006-create-new-version" }
-v007-create-new-version = { path = "v007-create-new-version" }
-v008-launch-create-new-version = { path = "v008-launch-create-new-version" }
-v009-dictionary = { path = "v009-dictionary" }
-v010-dictionary = { path = "v010-dictionary" }
-v011-recovery-state = { path = "v011-recovery-state" }
-v012-recovery-state = { path = "v012-recovery-state" }
+[workspace.dependencies.v011-recovery-state]
+path = "v011-recovery-state"
+
+[workspace.dependencies.v005-create-new-version]
+path = "v005-create-new-version"
+
+[workspace.dependencies.v026-dictionary]
+path = "v026-dictionary"
+
+[workspace.dependencies.v007-create-new-version]
+path = "v007-create-new-version"
+
+[workspace.dependencies.v013-recovery-state]
+path = "v013-recovery-state"
+
+[workspace.dependencies.v004-create-new-version]
+path = "v004-create-new-version"
+
+[workspace.dependencies.v012-recovery-state]
+path = "v012-recovery-state"
+
+[workspace.dependencies.v009-dictionary]
+path = "v009-dictionary"
+
+[workspace.dependencies.v008-launch-create-new-version]
+path = "v008-launch-create-new-version"
+
+[workspace.dependencies.v001-runner]
+path = "v001-runner"
+
+[workspace.dependencies.v006-create-new-version]
+path = "v006-create-new-version"
+
+[workspace.dependencies.v010-dictionary]
+path = "v010-dictionary"
+
+[workspace.dependencies.v014-recovery-state]
+path = "v014-recovery-state"
+
+[workspace.dependencies.v024-recovery-state]
+path = "v024-recovery-state"
+
+[workspace.dependencies.v003-create-new-version]
+path = "v003-create-new-version"
+
+[workspace.dependencies.v025-dictionary]
+path = "v025-dictionary"
