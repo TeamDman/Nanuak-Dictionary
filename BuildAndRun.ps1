@@ -1,0 +1,1 @@
+.\Build.ps1 && .\Run.ps1
