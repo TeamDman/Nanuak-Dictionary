@@ -60,17 +60,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "async-trait"
-version = "0.1.86"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "644dd749086bf3771a2fbc5f256fdb982d53f011c7d5d560304eafeecebce79d"
-dependencies = [
- "proc-macro2",
- "quote",
- "syn",
-]
-
-[[package]]
 name = "autocfg"
 version = "1.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -129,17 +118,6 @@ name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
-
-[[package]]
-name = "cloud_terrastodon_core_user_input"
-version = "0.1.0"
-source = "git+https://github.com/aafc-cloud/Cloud-Terrastodon/?rev=5ea41e5fa70a8f0e83119bec846c28d49859be6a#5ea41e5fa70a8f0e83119bec846c28d49859be6a"
-dependencies = [
- "eyre",
- "indexmap 2.7.1",
- "itertools 0.12.1",
- "tokio",
-]
 
 [[package]]
 name = "color-eyre"
@@ -226,12 +204,6 @@ name = "dyn-clone"
 version = "1.0.18"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "feeef44e73baff3a26d371801df019877a9866a8c493d315ab00177843314f35"
-
-[[package]]
-name = "either"
-version = "1.13.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "60b1af1c220855b6ceac025d3f6ecdd2b7c4894bfe9cd9bda4fbb4bc7c0d4cf0"
 
 [[package]]
 name = "encode_unicode"
@@ -363,12 +335,6 @@ name = "hashbrown"
 version = "0.15.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "bf151400ff0baff5465007dd2f3e717f3fe502074ca563069ce3a6629d07b289"
-
-[[package]]
-name = "heck"
-version = "0.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea"
 
 [[package]]
 name = "http"
@@ -635,24 +601,6 @@ name = "ipnet"
 version = "2.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "469fb0b9cefa57e3ef31275ee7cacb78f2fdca44e4765491884a2b119d4eb130"
-
-[[package]]
-name = "itertools"
-version = "0.12.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ba291022dbbd398a455acf126c1e341954079855bc60dfdda641363bd6922569"
-dependencies = [
- "either",
-]
-
-[[package]]
-name = "itertools"
-version = "0.14.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2b192c782037fadd9cfa75548310488aabdbf3d2da73885b31bd0abd03351285"
-dependencies = [
- "either",
-]
 
 [[package]]
 name = "itoa"
@@ -1256,28 +1204,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a2eb9349b6444b326872e140eb1cf5e7c522154d69e7a0ffb0fb81c06b37543f"
 
 [[package]]
-name = "strum"
-version = "0.27.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f64def088c51c9510a8579e3c5d67c65349dcf755e5479ad3d010aa6454e2c32"
-dependencies = [
- "strum_macros",
-]
-
-[[package]]
-name = "strum_macros"
-version = "0.27.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c77a8c5abcaf0f9ce05d62342b7d298c346515365c36b673df4ebe3ced01fde8"
-dependencies = [
- "heck",
- "proc-macro2",
- "quote",
- "rustversion",
- "syn",
-]
-
-[[package]]
 name = "syn"
 version = "2.0.98"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1595,56 +1521,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b6c140620e7ffbb22c2dee59cafe6084a59b5ffc27a8859a5f0d494b5d52b6be"
 
 [[package]]
-name = "v001-runner"
-version = "0.1.0"
-dependencies = [
- "color-eyre",
- "eyre",
- "ollama-rs",
- "tokio",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "v003-create-new-version"
-version = "0.1.0"
-dependencies = [
- "color-eyre",
- "eyre",
- "ollama-rs",
- "tokio",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "v004-create-new-version"
-version = "0.1.0"
-dependencies = [
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "tokio",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
-name = "v005-create-new-version"
-version = "0.1.0"
-dependencies = [
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "tokio",
- "tracing",
- "tracing-subscriber",
-]
-
-[[package]]
 name = "v006-create-new-version"
 version = "0.1.0"
 dependencies = [
@@ -1687,345 +1563,6 @@ dependencies = [
  "ollama-rs",
  "serde",
  "serde_json",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v009-dictionary"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "serde",
- "serde_json",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v010-dictionary"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "serde",
- "serde_json",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v011-recovery-state"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "serde",
- "serde_json",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v012-recovery-state"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "serde",
- "serde_json",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v013-recovery-state"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "serde",
- "serde_json",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v014-recovery-state"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "serde",
- "serde_json",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v024-recovery-state"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "color-eyre",
- "dialoguer",
- "eyre",
- "ollama-rs",
- "serde",
- "serde_json",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v025-dictionary"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "cloud_terrastodon_core_user_input",
- "color-eyre",
- "dialoguer",
- "eyre",
- "itertools 0.14.0",
- "ollama-rs",
- "serde",
- "serde_json",
- "strum",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v026-dictionary"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "async-trait",
- "cloud_terrastodon_core_user_input",
- "color-eyre",
- "dialoguer",
- "eyre",
- "itertools 0.14.0",
- "ollama-rs",
- "serde",
- "serde_json",
- "strum",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v030-dictionary"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "async-trait",
- "cloud_terrastodon_core_user_input",
- "color-eyre",
- "dialoguer",
- "eyre",
- "itertools 0.14.0",
- "ollama-rs",
- "serde",
- "serde_json",
- "strum",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v031-dictionary"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "async-trait",
- "cloud_terrastodon_core_user_input",
- "color-eyre",
- "dialoguer",
- "eyre",
- "itertools 0.14.0",
- "ollama-rs",
- "serde",
- "serde_json",
- "strum",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v032-dictionary"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "async-trait",
- "cloud_terrastodon_core_user_input",
- "color-eyre",
- "dialoguer",
- "eyre",
- "itertools 0.14.0",
- "ollama-rs",
- "serde",
- "serde_json",
- "strum",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v033-dictionary"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "async-trait",
- "cloud_terrastodon_core_user_input",
- "color-eyre",
- "dialoguer",
- "eyre",
- "itertools 0.14.0",
- "ollama-rs",
- "serde",
- "serde_json",
- "strum",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v034-dictionary"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "async-trait",
- "cloud_terrastodon_core_user_input",
- "color-eyre",
- "dialoguer",
- "eyre",
- "itertools 0.14.0",
- "ollama-rs",
- "serde",
- "serde_json",
- "strum",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v035-dictionary"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "async-trait",
- "cloud_terrastodon_core_user_input",
- "color-eyre",
- "dialoguer",
- "eyre",
- "itertools 0.14.0",
- "ollama-rs",
- "serde",
- "serde_json",
- "strum",
- "tokio",
- "toml",
- "tracing",
- "tracing-subscriber",
- "v006-create-new-version",
- "v007-create-new-version",
-]
-
-[[package]]
-name = "v036-dictionary-docker"
-version = "0.1.0"
-dependencies = [
- "async-recursion",
- "async-trait",
- "cloud_terrastodon_core_user_input",
- "color-eyre",
- "dialoguer",
- "eyre",
- "itertools 0.14.0",
- "ollama-rs",
- "serde",
- "serde_json",
- "strum",
  "tokio",
  "toml",
  "tracing",

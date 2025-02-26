@@ -1,0 +1,42 @@
+[package]
+name = "v036-dictionary-docker"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+serde_json = "1.0.138"
+async-trait = "0.1.86"
+eyre = "0.6.12"
+tracing = "0.1.41"
+ollama-rs = "0.2.5"
+async-recursion = "1.1.1"
+itertools = "0.14.0"
+color-eyre = "0.6.3"
+dialoguer = "0.11.0"
+toml = "0.8.20"
+
+[dependencies.cloud_terrastodon_core_user_input]
+git = "https://github.com/aafc-cloud/Cloud-Terrastodon/"
+rev = "5ea41e5fa70a8f0e83119bec846c28d49859be6a"
+
+[dependencies.tracing-subscriber]
+version = "0.3.19"
+features = ["fmt", "env-filter"]
+
+[dependencies.v006-create-new-version]
+path = "../v006-create-new-version"
+
+[dependencies.serde]
+version = "1.0.217"
+features = ["derive"]
+
+[dependencies.strum]
+version = "0.27.1"
+features = ["derive"]
+
+[dependencies.tokio]
+version = "1.43.0"
+features = ["full"]
+
+[dependencies.v007-create-new-version]
+path = "../v007-create-new-version"
