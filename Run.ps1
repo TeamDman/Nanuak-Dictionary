@@ -1,1 +1,1 @@
-docker run --add-host=host.docker.internal:host-gateway nanuak-dictionary 
+docker run -ti --add-host=host.docker.internal:host-gateway nanuak-dictionary 

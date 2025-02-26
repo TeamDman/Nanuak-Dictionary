@@ -1,7 +1,8 @@
+use ollama_rs::Ollama;
+use ollama_rs::generation::completion::request::GenerationRequest;
+use std::io::BufRead;
+use std::io::{self};
 use std::time::Duration;
-
-use eyre::OptionExt;
-use ollama_rs::{Ollama, generation::completion::request::GenerationRequest};
 use tracing::info;
 
 fn init() -> eyre::Result<()> {
@@ -19,22 +20,39 @@ fn init() -> eyre::Result<()> {
 #[tokio::main]
 async fn main() -> eyre::Result<()> {
     init()?;
-    info!("Hi!");
+    info!("Ready. Type a word or phrase and press Enter to get a definition. (Ctrl+D to exit)");
+
     let ollama = Ollama::new("http://host.docker.internal".to_string(), 11434);
     let model = "phi4:14b";
-    let prompt = "Why is the sky blue?";
-    let request = GenerationRequest::new(model.to_string(), prompt);
-    info!("Request: {:?}", request);
-    let response = ollama.generate(request).await?;
-    info!("Response: {:?}", response.response);
-    info!(
-        "Took {} ms",
-        Duration::from_millis(
-            response
-                .total_duration
-                .ok_or_eyre("Expected total duration to be present")?
-        )
-        .as_millis()
-    );
+
+    let stdin = io::stdin();
+    let handle = stdin.lock();
+
+    for line in handle.lines() {
+        let word = line?;
+        if word.trim().is_empty() {
+            continue;
+        }
+
+        let prompt = format!("Define the term: {:?}", word);
+        let request = GenerationRequest::new(model.to_string(), &prompt);
+        info!("Sending request: {}", prompt);
+
+        match ollama.generate(request).await {
+            Ok(response) => {
+                println!("Definition: {}", response.response);
+                if let Some(duration) = response.total_duration {
+                    info!(
+                        "Response time: {} ms",
+                        Duration::from_millis(duration).as_millis()
+                    );
+                }
+            }
+            Err(err) => {
+                eprintln!("Error querying model: {:?}", err);
+            }
+        }
+    }
+
     Ok(())
 }
