@@ -1,0 +1,1 @@
+docker build . --tag nanuak-dictionary:latest
